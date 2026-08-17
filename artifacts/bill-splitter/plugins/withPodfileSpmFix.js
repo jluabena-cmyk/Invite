@@ -3,7 +3,7 @@
 // the top level) so that EAS can safely import this file before node_modules
 // are fully installed — the IIFE approach fails at module-load time on the
 // EAS worker because @expo/config-plugins isn't resolvable yet at that stage.
-// Patches: (1) SPM nil-target guard (2) fmt consteval→constexpr (3) legacyResolver (8) SceneGeometry
+// Patches: (1) SPM nil-target guard (2) fmt consteval→constexpr (3) legacyResolver (8) SceneGeometry (9) expo-image getModule internal
 // (4) modular headers (5) RNViewShot scroll (6) clerk-ios 1.3.6 (7) platform :ios 17.0
 const fs = require('fs');
 const path = require('path');
@@ -338,6 +338,30 @@ const withPodfileSpmFix = (config) => {
         }
       } else {
         console.warn('[withPodfileSpmFix] StoreReviewModule.swift not found — skipping Patch 8');
+      }
+
+      // Patch 9: expo-image — moduleRegistry.getModule(implementing:) became `internal` in
+      // ExpoModulesCore 3.x. The public replacement is get(moduleWithName:) → cast to ImageModule.
+      // Affects ImageModule.swift and ImageView.swift when a newer expo-image is installed.
+      const expoImageSwiftFiles = [
+        path.join(config.modRequest.projectRoot, 'node_modules', 'expo-image', 'ios', 'ImageModule.swift'),
+        path.join(config.modRequest.projectRoot, 'node_modules', 'expo-image', 'ios', 'ImageView.swift'),
+      ];
+      const OLD_GET_MODULE = 'appContext?.moduleRegistry.getModule(implementing: ImageModule.self)?';
+      const NEW_GET_MODULE = '(appContext?.moduleRegistry.get(moduleWithName: "ExpoImage") as? ImageModule)?';
+      for (const imgFile of expoImageSwiftFiles) {
+        if (fs.existsSync(imgFile)) {
+          let imgContent = fs.readFileSync(imgFile, 'utf8');
+          if (imgContent.includes(OLD_GET_MODULE)) {
+            imgContent = imgContent.split(OLD_GET_MODULE).join(NEW_GET_MODULE);
+            fs.writeFileSync(imgFile, imgContent, 'utf8');
+            console.log(`[withPodfileSpmFix] ${path.basename(imgFile)} patched: getModule(implementing:) → get(moduleWithName:) cast`);
+          } else {
+            console.log(`[withPodfileSpmFix] ${path.basename(imgFile)}: getModule already absent (up-to-date or already patched)`);
+          }
+        } else {
+          console.warn(`[withPodfileSpmFix] ${path.basename(imgFile)} not found — skipping Patch 9`);
+        }
       }
 
       // Patch 4: modular headers for AppCheckCore's non-modular static deps.
