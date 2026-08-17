@@ -191,6 +191,17 @@ if [ "$_CURRENT_GIT_BRANCH" = "main" ] && [ "$DRY_RUN" = false ]; then
     exit 1
   fi
 
+  # build8-sync may carry snapshot commits (pushed via the GitHub API) whose
+  # history is unrelated to Replit's main even when the CONTENT is identical.
+  # If commit counting says "unpushed" but the trees match (ignoring
+  # attached_assets, which snapshots exclude), the push state is actually clean.
+  if [ "$_UNPUSHED" != "0" ]; then
+    if git -C "$APP_DIR" diff --quiet "$_BUILD_SYNC_REF" HEAD -- . ':(exclude)attached_assets' ':(exclude)owmo-build.tar.gz' 2>/dev/null; then
+      echo "  History differs ($_UNPUSHED commit(s)) but content is identical to $_BUILD_SYNC_REF — treating as pushed. ✓"
+      _UNPUSHED="0"
+    fi
+  fi
+
   if [ "$_UNPUSHED" != "0" ]; then
         echo ""
         echo "  ╔══════════════════════════════════════════════════════════════════════╗"

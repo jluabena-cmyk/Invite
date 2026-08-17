@@ -7,13 +7,19 @@ EAS iOS builds, and how to recover the build environment from scratch.
 
 | Branch | Contents | Use |
 | --- | --- | --- |
-| `build8-sync` | **The real code.** Full monorepo history, kept in sync with Replit `main`. | The Mac clones and pulls this branch. Always build from it. |
+| `build8-sync` | **The real code.** Full monorepo source, kept in sync with Replit `main` via snapshot commits (excludes `attached_assets/`). | The Mac clones and pulls this branch. Always build from it. |
 | `main` (GitHub) | Orphan "init" commit (README only). No shared history with the code. | **Never pull, reset to, or build from it.** |
 
 Flow: Replit `main` → (push) → GitHub `origin/build8-sync` → (sync script) → Mac working copy.
 
 - On Replit, pushing is done with the internal GitHub integration:
   `gitPush({ branch: "build8-sync" })` (plain `git push origin ...` has no credentials).
+  When `gitPush` is unavailable (e.g. task sessions), sync by creating a snapshot
+  commit through the GitHub Git Data API via the GitHub connection: upload changed
+  blobs, build a tree (excluding `attached_assets/`), commit on top of the current
+  `build8-sync` head, and fast-forward the ref. The stage script's push-state guard
+  accepts this: if commit counting disagrees but the trees are content-identical,
+  it treats main as pushed.
 - The stage script (`stage-eas-build.sh`) blocks real builds on Replit if `main`
   has commits not yet pushed to `origin/build8-sync`.
 - On the Mac, `sync-from-replit.sh` pulls `origin/build8-sync` (its default) and
