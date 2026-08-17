@@ -1,0 +1,687 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: API specification
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: users
+    description: User operations
+  - name: events
+    description: Event operations
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /users/me:
+    get:
+      operationId: getCurrentUser
+      tags: [users]
+      summary: Get current authenticated user profile
+      description: Returns the authenticated user's profile from the database
+      responses:
+        "200":
+          description: User profile record
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProfile"
+        "401":
+          description: Unauthorized
+        "404":
+          description: Profile not found
+    post:
+      operationId: upsertCurrentUser
+      tags: [users]
+      summary: Upsert current authenticated user profile
+      description: Creates or updates the authenticated user's profile in the database
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpsertUserRequest"
+      responses:
+        "200":
+          description: User profile record
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProfile"
+        "401":
+          description: Unauthorized
+    patch:
+      operationId: updateCurrentUser
+      tags: [users]
+      summary: Update current authenticated user profile
+      description: Updates editable fields on the authenticated user's profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateUserRequest"
+      responses:
+        "200":
+          description: Updated user profile record
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProfile"
+        "401":
+          description: Unauthorized
+        "404":
+          description: Profile not found
+  /users/suggestions:
+    get:
+      operationId: getUserSuggestions
+      tags: [users]
+      summary: Get friend suggestions based on shared events
+      description: Returns up to 10 profiles of users who share at least one event with the caller but are not yet friends and have no pending request. Ordered by number of shared events descending.
+      responses:
+        "200":
+          description: List of suggested users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SuggestedUser"
+        "401":
+          description: Unauthorized
+        "404":
+          description: Profile not found
+  /users/match-phones:
+    post:
+      operationId: matchPhones
+      tags: [users]
+      summary: Match hashed phone numbers to app users
+      description: Accepts an array of SHA-256 hashed phone numbers and returns matching user profiles. Phone numbers must be hashed client-side before sending.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MatchPhonesRequest"
+      responses:
+        "200":
+          description: Matched user profiles
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MatchPhonesResponse"
+        "401":
+          description: Unauthorized
+        "404":
+          description: Profile not found
+  /events:
+    get:
+      operationId: getEvents
+      tags: [events]
+      summary: List events for current user
+      description: Returns events where the authenticated user is a participant, including their role
+      responses:
+        "200":
+          description: List of events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Event"
+        "401":
+          description: Unauthorized
+    post:
+      operationId: createEvent
+      tags: [events]
+      summary: Create a new event
+      description: Creates an event and automatically adds the creator as host participant
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateEventRequest"
+      responses:
+        "201":
+          description: Created event
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Event"
+        "400":
+          description: Bad request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Profile not found
+  /events/join:
+    post:
+      operationId: joinEvent
+      tags: [events]
+      summary: Join an event by join code
+      description: Looks up the join code server-side and adds the caller as a participant
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/JoinEventRequest"
+      responses:
+        "200":
+          description: The joined event
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Event"
+        "400":
+          description: Bad request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Invalid join code
+        "409":
+          description: Already joined
+  /events/{eventId}/chat/read:
+    post:
+      operationId: markChatRead
+      tags: [events]
+      summary: Mark the event chat as read for the authenticated user
+      description: Sets the caller's chat_last_read_at timestamp to now. The unreadChatCount on GET /events will return 0 for this event until new messages arrive. Requires full-access participation (host, participant, or accepted).
+      parameters:
+        - name: eventId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Marked as read
+        "401":
+          description: Unauthorized
+        "403":
+          description: Not a participant with full access
+        "400":
+          description: Invalid event id
+  /events/{eventId}/share:
+    post:
+      operationId: generateJoinCode
+      tags: [events]
+      summary: Generate or retrieve join code for an event
+      description: Host-only. Returns existing code if one exists, otherwise creates one.
+      parameters:
+        - name: eventId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "201":
+          description: Join code record
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventShare"
+        "401":
+          description: Unauthorized
+        "403":
+          description: Only the host can generate a join code
+        "404":
+          description: Event not found
+  /events/{eventId}/receipt/photos/upload-url:
+    post:
+      operationId: requestReceiptPhotoUploadUrl
+      tags: [events]
+      summary: Get a signed PUT URL for direct receipt photo upload
+      description: Host-only. Returns a short-lived signed URL so the client can PUT the image bytes directly to GCS, bypassing the API proxy.
+      parameters:
+        - name: eventId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PhotoUploadUrlRequest"
+      responses:
+        "200":
+          description: Signed upload URL
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PhotoUploadUrlResponse"
+        "401":
+          description: Unauthorized
+        "403":
+          description: Host only
+        "415":
+          description: Unsupported MIME type
+        "429":
+          description: Rate limit exceeded
+  /events/{eventId}/receipt/photos/confirm:
+    post:
+      operationId: confirmReceiptPhotoUpload
+      tags: [events]
+      summary: Confirm a receipt photo upload and create the DB record
+      description: Host-only. Called after a successful GCS PUT. Creates the receipt (if absent) and the receipt photo row. Idempotent — calling twice with the same objectPath returns the existing record.
+      parameters:
+        - name: eventId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PhotoConfirmRequest"
+      responses:
+        "200":
+          description: Existing receipt photo record (idempotent re-confirm)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReceiptPhotoItem"
+        "201":
+          description: Newly created receipt photo record
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReceiptPhotoItem"
+        "400":
+          description: Invalid object path
+        "401":
+          description: Unauthorized
+        "403":
+          description: Host only
+        "415":
+          description: Unsupported MIME type
+  /events/{eventId}/photos/upload-url:
+    post:
+      operationId: requestEventPhotoUploadUrl
+      tags: [events]
+      summary: Get a signed PUT URL for direct gallery photo upload
+      description: Full-access participants (host, participant, accepted). Returns a short-lived signed URL so the client can PUT the image bytes directly to GCS.
+      parameters:
+        - name: eventId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PhotoUploadUrlRequest"
+      responses:
+        "200":
+          description: Signed upload URL
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PhotoUploadUrlResponse"
+        "401":
+          description: Unauthorized
+        "403":
+          description: Full access required
+        "415":
+          description: Unsupported MIME type
+        "429":
+          description: Rate limit exceeded
+  /events/{eventId}/photos/confirm:
+    post:
+      operationId: confirmEventPhotoUpload
+      tags: [events]
+      summary: Confirm a gallery photo upload and create the DB record
+      description: Full-access participants. Called after a successful GCS PUT. Creates the event photo row. Idempotent.
+      parameters:
+        - name: eventId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PhotoConfirmRequest"
+      responses:
+        "200":
+          description: Existing gallery photo record (idempotent re-confirm)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventGalleryPhotoItem"
+        "201":
+          description: Newly created gallery photo record
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventGalleryPhotoItem"
+        "400":
+          description: Invalid object path
+        "401":
+          description: Unauthorized
+        "403":
+          description: Full access required
+        "415":
+          description: Unsupported MIME type
+  /events/{eventId}/receipt/photos/{photoId}/scan:
+    post:
+      operationId: scanReceiptPhoto
+      tags: [events]
+      summary: OCR-scan a receipt photo into draft line items
+      description: Host-only. Sends the receipt photo to OpenAI vision and returns structured draft items for host review. Does not save anything to the database.
+      parameters:
+        - name: eventId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: photoId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OCR draft result — items array may be empty if no items detected
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OcrDraftResult"
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden — host only
+        "404":
+          description: Event or photo not found
+        "422":
+          description: OCR failed — vision model returned malformed or unparseable response
+        "500":
+          description: Server error
+components:
+  schemas:
+    PhotoUploadUrlRequest:
+      type: object
+      properties:
+        mimeType:
+          type: string
+          example: image/jpeg
+      required:
+        - mimeType
+    PhotoUploadUrlResponse:
+      type: object
+      properties:
+        uploadUrl:
+          type: string
+          description: Short-lived signed PUT URL pointing directly at GCS
+        objectPath:
+          type: string
+          description: Logical object path (included for reference; pass token to confirm)
+        token:
+          type: string
+          description: HMAC-signed upload intent token — pass verbatim to the confirm endpoint
+      required:
+        - uploadUrl
+        - objectPath
+        - token
+    PhotoConfirmRequest:
+      type: object
+      properties:
+        token:
+          type: string
+          description: The token returned by the upload-url endpoint
+      required:
+        - token
+    EventGalleryPhotoItem:
+      type: object
+      properties:
+        id:
+          type: integer
+        uploadedByUserId:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        signedImageUrl:
+          type: string
+      required:
+        - id
+        - uploadedByUserId
+        - createdAt
+        - signedImageUrl
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+    UpsertUserRequest:
+      type: object
+      properties:
+        email:
+          type: string
+        displayName:
+          type: string
+        phoneNumberHash:
+          type: string
+          nullable: true
+      required:
+        - email
+    UpdateUserRequest:
+      type: object
+      properties:
+        displayName:
+          type: string
+        phoneNumberHash:
+          type: string
+          nullable: true
+    MatchPhonesRequest:
+      type: object
+      properties:
+        hashes:
+          type: array
+          items:
+            type: string
+      required:
+        - hashes
+    MatchedUser:
+      type: object
+      properties:
+        phoneNumberHash:
+          type: string
+        id:
+          type: integer
+        displayName:
+          type: string
+        handle:
+          type: string
+        avatarUrl:
+          type: string
+          nullable: true
+        bio:
+          type: string
+          nullable: true
+      required:
+        - phoneNumberHash
+        - id
+        - displayName
+        - handle
+        - avatarUrl
+        - bio
+    SuggestedUser:
+      type: object
+      properties:
+        id:
+          type: integer
+        displayName:
+          type: string
+        handle:
+          type: string
+        avatarUrl:
+          type: string
+          nullable: true
+        bio:
+          type: string
+          nullable: true
+        sharedEventCount:
+          type: integer
+      required:
+        - id
+        - displayName
+        - handle
+        - avatarUrl
+        - bio
+        - sharedEventCount
+    MatchPhonesResponse:
+      type: object
+      properties:
+        matches:
+          type: array
+          items:
+            $ref: "#/components/schemas/MatchedUser"
+      required:
+        - matches
+    UserProfile:
+      type: object
+      properties:
+        id:
+          type: integer
+        clerkUserId:
+          type: string
+        displayName:
+          type: string
+          nullable: true
+        email:
+          type: string
+        phoneNumberHash:
+          type: string
+          nullable: true
+          description: SHA-256 hash of the user's normalized phone number. Never contains the raw number.
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - clerkUserId
+        - email
+        - createdAt
+    CreateEventRequest:
+      type: object
+      properties:
+        title:
+          type: string
+        restaurantName:
+          type: string
+      required:
+        - title
+    Event:
+      type: object
+      properties:
+        id:
+          type: integer
+        ownerUserId:
+          type: integer
+        title:
+          type: string
+        restaurantName:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        role:
+          type: string
+        goingCount:
+          type: integer
+        notGoingCount:
+          type: integer
+        notRespondedCount:
+          type: integer
+        unreadChatCount:
+          type: integer
+          description: Number of chat messages posted after the caller's last mark-as-read timestamp. 0 when all messages have been read.
+      required:
+        - id
+        - ownerUserId
+        - title
+        - createdAt
+        - role
+    JoinEventRequest:
+      type: object
+      properties:
+        joinCode:
+          type: string
+      required:
+        - joinCode
+    EventShare:
+      type: object
+      properties:
+        id:
+          type: integer
+        eventId:
+          type: integer
+        joinCode:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - eventId
+        - joinCode
+        - createdAt
+    OcrDraftItem:
+      type: object
+      properties:
+        name:
+          type: string
+        quantity:
+          type: number
+          nullable: true
+        priceStr:
+          type: string
+      required:
+        - name
+        - priceStr
+    OcrDraftResult:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/OcrDraftItem"
+        subtotal:
+          type: string
+          nullable: true
+        tax:
+          type: string
+          nullable: true
+        total:
+          type: string
+          nullable: true
+      required:
+        - items

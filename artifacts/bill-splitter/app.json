@@ -1,0 +1,93 @@
+{
+  "expo": {
+    "name": "Owmo",
+    "slug": "owmo",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "owmo",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1a1f3c"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.owmo.app",
+      "buildNumber": "21",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Owmo uses your camera to take photos of receipts and to scan QR invite codes.",
+        "NSPhotoLibraryUsageDescription": "Owmo accesses your photo library to upload receipt photos for bill splitting.",
+        "NSLocationWhenInUseUsageDescription": "Owmo uses your location to help find restaurants and venues when creating events.",
+        "NSContactsUsageDescription": "Owmo uses your contacts so you can invite friends who aren't on the app yet via text message."
+      },
+      "config": {
+        "usesNonExemptEncryption": false
+      },
+      "entitlements": {
+        "com.apple.developer.applesignin": ["Default"]
+      },
+      "associatedDomains": []
+    },
+    "android": {
+      "package": "com.owmo.app",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#1a1f3c"
+      },
+      "intentFilters": []
+    },
+    "web": {
+      "favicon": "./assets/images/icon.png"
+    },
+    "plugins": [
+      [
+        "expo-router",
+        {
+          "origin": "https://localhost/"
+        }
+      ],
+      "expo-font",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Owmo uses your camera to take photos of receipts and to scan QR invite codes."
+        }
+      ],
+      "expo-web-browser",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Owmo accesses your photo library to upload receipt photos for bill splitting.",
+          "cameraPermission": "Owmo uses your camera to take photos of receipts for bill splitting."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Owmo uses your location to help find restaurants and venues when creating events."
+        }
+      ],
+      [
+        "expo-contacts",
+        {
+          "contactsPermission": "Owmo uses your contacts so you can invite friends who aren't on the app yet via text message."
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    },
+    "extra": {
+      "privacyPolicyUrl": "https://invite-9bwgw.replit.app/api/privacy",
+      "termsUrl": "https://invite-9bwgw.replit.app/api/terms",
+      "supportUrl": "mailto:support@owmo.app",
+      "eas": {
+        "projectId": "bc60ac18-3dd1-49bd-9906-16a79d2a9123"
+      }
+    }
+  }
+}

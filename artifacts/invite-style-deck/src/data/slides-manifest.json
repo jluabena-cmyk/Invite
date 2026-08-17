@@ -1,0 +1,186 @@
+[
+  {
+    "id": "a1b2c3d4-0001-0001-0001-000000000001",
+    "position": 1,
+    "filepath": "src/pages/slides/Intro.tsx",
+    "title": "invite — 3 Style Directions",
+    "description": "Intro slide presenting the three visual identity directions",
+    "speakerNotes": ""
+  },
+  {
+    "id": "a1b2c3d4-0002-0002-0002-000000000002",
+    "position": 2,
+    "filepath": "src/pages/slides/DirectionAHero.tsx",
+    "title": "A — Minimal & Modern",
+    "description": "Section header for Direction A — light palette, Outfit typeface, indigo-slate",
+    "speakerNotes": ""
+  },
+  {
+    "id": "a1b2c3d4-0003-0003-0003-000000000003",
+    "position": 3,
+    "filepath": "src/pages/slides/DirectionASpec.tsx",
+    "title": "A — Colour & Type Specimen",
+    "description": "Direction A full colour palette and Outfit typography scale",
+    "speakerNotes": ""
+  },
+  {
+    "id": "a1b2c3d4-0004-0004-0004-000000000004",
+    "position": 4,
+    "filepath": "src/pages/slides/DirectionAMockup.tsx",
+    "title": "A — UI Mockup",
+    "description": "Direction A event card and upcoming events list in the Minimal & Modern style",
+    "speakerNotes": ""
+  },
+  {
+    "id": "a1b2c3d4-0005-0005-0005-000000000005",
+    "position": 5,
+    "filepath": "src/pages/slides/DirectionBHero.tsx",
+    "title": "B — Warm Social",
+    "description": "Section header for Direction B — cream background, terracotta and violet, Plus Jakarta Sans",
+    "speakerNotes": ""
+  },
+  {
+    "id": "a1b2c3d4-0006-0006-0006-000000000006",
+    "position": 6,
+    "filepath": "src/pages/slides/DirectionBSpec.tsx",
+    "title": "B — Colour & Type Specimen",
+    "description": "Direction B full colour palette and Plus Jakarta Sans typography scale",
+    "speakerNotes": ""
+  },
+  {
+    "id": "a1b2c3d4-0007-0007-0007-000000000007",
+    "position": 7,
+    "filepath": "src/pages/slides/DirectionBMockup.tsx",
+    "title": "B — UI Mockup",
+    "description": "Direction B event card and upcoming events list in the Warm Social style",
+    "speakerNotes": ""
+  },
+  {
+    "id": "a1b2c3d4-0008-0008-0008-000000000008",
+    "position": 8,
+    "filepath": "src/pages/slides/DirectionCHero.tsx",
+    "title": "C — Bold Night Out",
+    "description": "Section header for Direction C — dark navy, electric violet and lime, Space Grotesk",
+    "speakerNotes": ""
+  },
+  {
+    "id": "a1b2c3d4-0009-0009-0009-000000000009",
+    "position": 9,
+    "filepath": "src/pages/slides/DirectionCSpec.tsx",
+    "title": "C — Colour & Type Specimen",
+    "description": "Direction C full colour palette and Space Grotesk typography scale",
+    "speakerNotes": ""
+  },
+  {
+    "id": "a1b2c3d4-0010-0010-0010-000000000010",
+    "position": 10,
+    "filepath": "src/pages/slides/DirectionCMockup.tsx",
+    "title": "C — UI Mockup",
+    "description": "Direction C event card and upcoming events list in the Bold Night Out style",
+    "speakerNotes": ""
+  },
+  {
+    "id": "a1b2c3d4-0011-0011-0011-000000000011",
+    "position": 11,
+    "filepath": "src/pages/slides/Closing.tsx",
+    "title": "Three Directions. One Decision.",
+    "description": "Closing slide with side-by-side comparison of all three style directions",
+    "speakerNotes": ""
+  },
+  {
+    "id": "b2c3d4e5-0012-0012-0012-000000000012",
+    "position": 12,
+    "filepath": "src/pages/slides/WarmSocialFeed.tsx",
+    "title": "Warm Social — Events Feed",
+    "description": "Layout 1: home feed with date-grouped event cards, avatar stacks, and share amount pills",
+    "speakerNotes": ""
+  },
+  {
+    "id": "b2c3d4e5-0013-0013-0013-000000000013",
+    "position": 13,
+    "filepath": "src/pages/slides/WarmSocialDetail.tsx",
+    "title": "Warm Social — Event Detail",
+    "description": "Layout 2: event detail screen with receipt line-items, guest row, and per-person share highlight",
+    "speakerNotes": ""
+  },
+  {
+    "id": "b2c3d4e5-0014-0014-0014-000000000014",
+    "position": 14,
+    "filepath": "src/pages/slides/WarmSocialPay.tsx",
+    "title": "Warm Social — Split Summary",
+    "description": "Layout 3: split summary screen with per-person amounts, paid/pending badges, and collection progress bar",
+    "speakerNotes": ""
+  },
+  {
+    "id": "c3d4e5f6-0015-0015-0015-000000000015",
+    "position": 15,
+    "filepath": "src/pages/slides/WarmBleedFeed.tsx",
+    "title": "Style D — Full Bleed · Feed",
+    "description": "Full bleed layout: active event anchors a terracotta left panel; upcoming events stack in cream on the right",
+    "speakerNotes": ""
+  },
+  {
+    "id": "c3d4e5f6-0016-0016-0016-000000000016",
+    "position": 16,
+    "filepath": "src/pages/slides/WarmBleedDetail.tsx",
+    "title": "Style D — Full Bleed · Detail",
+    "description": "Full bleed layout: terracotta top-bar hero with venue and guests; receipt breakdown fills the cream body below",
+    "speakerNotes": ""
+  },
+  {
+    "id": "c3d4e5f6-0017-0017-0017-000000000017",
+    "position": 17,
+    "filepath": "src/pages/slides/WarmBleedPay.tsx",
+    "title": "Style D — Full Bleed · Pay",
+    "description": "Full bleed layout: total and progress on the left; individual paid/pending rows fill the right panel",
+    "speakerNotes": ""
+  },
+  {
+    "id": "d4e5f6a7-0018-0018-0018-000000000018",
+    "position": 18,
+    "filepath": "src/pages/slides/WarmRowFeed.tsx",
+    "title": "Style E — Row & Rule · Feed",
+    "description": "Row & rule layout: no cards — horizontal rules create rhythm; coloured dot signals urgency per event",
+    "speakerNotes": ""
+  },
+  {
+    "id": "d4e5f6a7-0019-0019-0019-000000000019",
+    "position": 19,
+    "filepath": "src/pages/slides/WarmRowDetail.tsx",
+    "title": "Style E — Row & Rule · Detail",
+    "description": "Row & rule layout: receipt as pure ruled rows; double rule marks tax line; your share in terracotta closes the list",
+    "speakerNotes": ""
+  },
+  {
+    "id": "d4e5f6a7-0020-0020-0020-000000000020",
+    "position": 20,
+    "filepath": "src/pages/slides/WarmRowPay.tsx",
+    "title": "Style E — Row & Rule · Pay",
+    "description": "Row & rule layout: dot + label replaces badges; faster to scan, less visual noise than pill badges",
+    "speakerNotes": ""
+  },
+  {
+    "id": "e5f6a7b8-0021-0021-0021-000000000021",
+    "position": 21,
+    "filepath": "src/pages/slides/WarmBigFeed.tsx",
+    "title": "Style F — Big Stat · Feed",
+    "description": "Big stat layout: giant event count dominates; three compact event panels below for context",
+    "speakerNotes": ""
+  },
+  {
+    "id": "e5f6a7b8-0022-0022-0022-000000000022",
+    "position": 22,
+    "filepath": "src/pages/slides/WarmBigDetail.tsx",
+    "title": "Style F — Big Stat · Detail",
+    "description": "Big stat layout: total amount fills the left at display scale; full receipt breakdown runs on the right",
+    "speakerNotes": ""
+  },
+  {
+    "id": "e5f6a7b8-0023-0023-0023-000000000023",
+    "position": 23,
+    "filepath": "src/pages/slides/WarmBigPay.tsx",
+    "title": "Style F — Big Stat · Pay",
+    "description": "Big stat layout: giant paid fraction centers the screen; friend status cards below in a row",
+    "speakerNotes": ""
+  }
+]

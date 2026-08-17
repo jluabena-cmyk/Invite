@@ -1,0 +1,16 @@
+{
+  "_comment": "Known-good versions of native dependencies for EAS builds. Update intentionally after verifying a new version builds and runs correctly. The stage-eas-build.sh script warns (or aborts with --strict-versions) when locally-installed versions differ. ALL keys (except _comment) are checked dynamically — no hardcoded list in the script.",
+  "_patches": "Packages below correspond to active patches in plugins/withPodfileSpmFix.js. When a new patch is added for a package, add that package here so drift is caught before the next build.",
+  "expo": "57.0.9",
+  "react-native": "0.86.2",
+  "@clerk/expo": "3.7.8",
+  "@sentry/react-native": "8.20.0",
+  "expo-notifications": "57.0.8",
+  "expo-store-review": "57.0.1",
+  "expo-image": "57.0.1",
+  "expo-camera": "57.0.3",
+  "expo-contacts": "57.0.3",
+  "expo-location": "57.0.7",
+  "expo-image-picker": "57.0.7",
+  "react-native-view-shot": "4.0.3"
+}

@@ -1,0 +1,73 @@
+{
+  "cli": {
+    "version": ">= 16.0.0 < 21.0.0",
+    "appVersionSource": "local"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "ios": {
+        "simulator": true
+      },
+      "env": {
+        "APP_ENV": "development"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "ios": {
+        "simulator": false
+      },
+      "channel": "preview",
+      "env": {
+        "APP_ENV": "preview",
+        "EXPO_PUBLIC_DOMAIN": "$EXPO_PUBLIC_DOMAIN",
+        "EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY": "$EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY",
+        "EXPO_PUBLIC_CLERK_PROXY_URL": "$EXPO_PUBLIC_CLERK_PROXY_URL"
+      }
+    },
+    "production": {
+      "distribution": "store",
+      "ios": {
+        "credentialsSource": "remote",
+        "image": "latest"
+      },
+      "android": {
+        "credentialsSource": "remote",
+        "buildType": "app-bundle"
+      },
+      "channel": "production",
+      "env": {
+        "APP_ENV": "production",
+        "EAS_PROJECT_ID": "bc60ac18-3dd1-49bd-9906-16a79d2a9123",
+        "EXPO_PUBLIC_DOMAIN": "$EXPO_PUBLIC_DOMAIN",
+        "EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_live_YXBwXzNFSlVFVUlhb2JSWHFtcU00YVdnUHpGeTJPTS5jbGVyay5kZXYk",
+        "EXPO_PUBLIC_CLERK_PROXY_URL": "$EXPO_PUBLIC_CLERK_PROXY_URL",
+        "EXPO_PUBLIC_CLERK_GOOGLE_WEB_CLIENT_ID": "173626481956-fcpdsmhf67sf2gbor9bumt47buhcr1ev.apps.googleusercontent.com",
+        "PRODUCTION_DOMAIN": "owmo-9bwgw.replit.app",
+        "APNS_KEY_ID": "$APNS_KEY_ID",
+        "APPLE_TEAM_ID": "$APPLE_TEAM_ID",
+        "EXPO_PUBLIC_SENTRY_DSN": "$EXPO_PUBLIC_SENTRY_DSN",
+        "EXPO_PUBLIC_REVENUECAT_IOS_API_KEY": "$EXPO_PUBLIC_REVENUECAT_IOS_API_KEY",
+        "EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY": "$EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY",
+        "EXPO_USE_PRECOMPILED_MODULES": "0",
+        "EXPO_APPLE_ID": "$EXPO_APPLE_ID",
+        "EXPO_APPLE_APP_SPECIFIC_PASSWORD": "$EXPO_APPLE_APP_SPECIFIC_PASSWORD"
+      }
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "ascAppId": "6790176677",
+        "appleTeamId": "FNBGUZQ4T3",
+        "language": "en-US"
+      },
+      "android": {
+        "serviceAccountKeyPath": "$GOOGLE_SERVICE_ACCOUNT_KEY_PATH",
+        "track": "internal"
+      }
+    }
+  }
+}

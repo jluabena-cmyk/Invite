@@ -1,0 +1,27 @@
+kind = "mobile"
+previewPath = "/"
+title = "Bill Splitter"
+version = "1.0.0"
+id = "artifacts/bill-splitter"
+router = "expo-domain"
+
+[[integratedSkills]]
+name = "expo"
+version = "1.0.0"
+
+[[services]]
+ensurePreviewReachable = "/status"
+name = "expo"
+paths = [ "/" ]
+localPort = 22252
+
+[services.development]
+run = "pnpm --filter @workspace/bill-splitter run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/bill-splitter", "run", "build" ]
+run = [ "pnpm", "--filter", "@workspace/bill-splitter", "run", "serve" ]
+
+[services.env]
+PORT = "22252"
+BASE_PATH = "/"

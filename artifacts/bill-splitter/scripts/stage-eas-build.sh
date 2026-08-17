@@ -238,10 +238,14 @@ python3 "$APP_DIR/scripts/freshness_check.py" "$APP_DIR" "$MAX_AGE_HOURS" "$STRI
 echo ""
 
 # ── Pre-flight: native dependency version drift check ───────────────────────
-# Compares the locally-installed versions of key native dependencies against
-# the known-good baseline recorded in scripts/native-deps-baseline.json.
-# Drift in these packages (expo, react-native, @clerk/expo, expo-notifications)
-# has previously caused EAS worker builds to fail with cryptic native errors.
+# Compares the locally-installed versions of ALL native dependencies listed in
+# scripts/native-deps-baseline.json against the known-good baseline versions.
+# The baseline covers every package that has an active patch in
+# plugins/withPodfileSpmFix.js (expo, react-native, @clerk/expo,
+# expo-notifications, @sentry/react-native, expo-store-review, expo-image,
+# expo-camera, expo-contacts, expo-location, expo-image-picker,
+# react-native-view-shot).  All keys in the baseline file are checked
+# dynamically — there is no hardcoded subset here.
 #
 # Pass --strict-versions to treat any drift as a hard error (exit 1).
 # Without that flag the check prints a warning and continues.
@@ -254,8 +258,6 @@ strict       = sys.argv[2].lower() == "true"
 baseline_path = os.path.join(app_dir, 'scripts', 'native-deps-baseline.json')
 local_nm     = os.path.join(app_dir, 'node_modules')
 
-KEY_DEPS = ['expo', 'react-native', '@clerk/expo', 'expo-notifications']
-
 if not os.path.exists(baseline_path):
     print(f"  WARNING: baseline file not found at {baseline_path}")
     print(f"  Create it by running: scripts/update-native-deps-baseline.sh")
@@ -266,18 +268,16 @@ baseline = json.load(open(baseline_path))
 # Strip metadata keys that start with _
 baseline = {k: v for k, v in baseline.items() if not k.startswith('_')}
 
+# Check ALL packages listed in the baseline (not a hardcoded subset).
+# To add a new package to the drift check, add it to native-deps-baseline.json.
 drifted = []
 checked = []
-for name in KEY_DEPS:
+for name, expected in baseline.items():
     pkg_json = os.path.join(local_nm, name, 'package.json')
     if not os.path.exists(pkg_json):
         print(f"  WARNING: {name} is not installed locally — cannot verify version")
         continue
     installed = json.load(open(pkg_json))['version']
-    expected  = baseline.get(name)
-    if expected is None:
-        print(f"  INFO:    {name}@{installed}  (not in baseline — add it to track)")
-        continue
     if installed != expected:
         drifted.append((name, installed, expected))
     else:

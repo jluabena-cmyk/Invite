@@ -1,0 +1,35 @@
+{pkgs}: {
+  deps = [
+    pkgs.chromium
+    pkgs.eudev
+    pkgs.libxkbcommon
+    pkgs.xorg.libXfont2
+    pkgs.xorg.libxshmfence
+    pkgs.mesa
+    pkgs.libdrm
+    pkgs.freetype
+    pkgs.fontconfig
+    pkgs.expat
+    pkgs.dbus
+    pkgs.alsa-lib
+    pkgs.cairo
+    pkgs.pango
+    pkgs.cups
+    pkgs.xorg.libXtst
+    pkgs.xorg.libXrender
+    pkgs.xorg.libXi
+    pkgs.xorg.libXcursor
+    pkgs.xorg.libX11
+    pkgs.xorg.libxcb
+    pkgs.xorg.libXrandr
+    pkgs.xorg.libXfixes
+    pkgs.xorg.libXext
+    pkgs.xorg.libXdamage
+    pkgs.xorg.libXcomposite
+    pkgs.at-spi2-atk
+    pkgs.atk
+    pkgs.nspr
+    pkgs.nss
+    pkgs.glib
+  ];
+}

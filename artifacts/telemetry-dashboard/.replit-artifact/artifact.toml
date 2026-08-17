@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/diagnostics/"
+title = "Owmo Diagnostics"
+description = "A password-gated admin dashboard for Owmo's production diagnostics. Shows per-build launch telemetry (Clerk init time, timeout rate, API reachability), API error rates per endpoint per hour, and a per-build summary so regressions are visible immediately after each TestFlight build."
+version = "1.0.0"
+id = "artifacts/telemetry-dashboard"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/diagnostics/" ]
+localPort = 25823
+
+[services.development]
+run = "pnpm --filter @workspace/telemetry-dashboard run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/telemetry-dashboard", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/telemetry-dashboard/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25823"
+BASE_PATH = "/diagnostics/"

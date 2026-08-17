@@ -1,0 +1,106 @@
+[
+  {
+    "id": "rd-0001-0001-0001-000000000001",
+    "position": 1,
+    "filepath": "src/pages/slides/Cover.tsx",
+    "title": "Home & Events — Redesign Directions",
+    "description": "Cover slide introducing the three visual redesign directions for Home Screen and Event Detail",
+    "speakerNotes": ""
+  },
+  {
+    "id": "rd-0002-0002-0002-000000000002",
+    "position": 2,
+    "filepath": "src/pages/slides/LuxePalette.tsx",
+    "title": "A — Dark Luxe · Palette",
+    "description": "Mood and palette slide for Direction A: deep navy, warm gold, DM Serif Display",
+    "speakerNotes": ""
+  },
+  {
+    "id": "rd-0003-0003-0003-000000000003",
+    "position": 3,
+    "filepath": "src/pages/slides/LuxeHome.tsx",
+    "title": "A — Dark Luxe · Home Screen",
+    "description": "Phone-framed Home Screen mockup in the Dark Luxe direction",
+    "speakerNotes": ""
+  },
+  {
+    "id": "rd-0004-0004-0004-000000000004",
+    "position": 4,
+    "filepath": "src/pages/slides/LuxeEvent.tsx",
+    "title": "A — Dark Luxe · Event Detail",
+    "description": "Phone-framed Event Detail mockup in the Dark Luxe direction",
+    "speakerNotes": ""
+  },
+  {
+    "id": "rd-0012-0012-0012-000000000012",
+    "position": 5,
+    "filepath": "src/pages/slides/LuxeBill.tsx",
+    "title": "A — Dark Luxe · Bill Tab",
+    "description": "Phone-framed Bill Tab mockup showing receipt line items, claim pips, tax/tip breakdown, and Settle Up CTA in the Dark Luxe direction",
+    "speakerNotes": ""
+  },
+  {
+    "id": "rd-0013-0013-0013-000000000013",
+    "position": 6,
+    "filepath": "src/pages/slides/LuxeChat.tsx",
+    "title": "A — Dark Luxe · Chat Tab",
+    "description": "Phone-framed Chat Tab mockup showing conversation bubbles, inline system event pills, and send bar in the Dark Luxe direction",
+    "speakerNotes": ""
+  },
+  {
+    "id": "rd-0005-0005-0005-000000000005",
+    "position": 7,
+    "filepath": "src/pages/slides/BoldPalette.tsx",
+    "title": "B — Playful Bold · Palette",
+    "description": "Mood and palette slide for Direction B: cream, hot coral, electric blue, Nunito Black",
+    "speakerNotes": ""
+  },
+  {
+    "id": "rd-0006-0006-0006-000000000006",
+    "position": 8,
+    "filepath": "src/pages/slides/BoldHome.tsx",
+    "title": "B — Playful Bold · Home Screen",
+    "description": "Phone-framed Home Screen mockup in the Playful Bold direction",
+    "speakerNotes": ""
+  },
+  {
+    "id": "rd-0007-0007-0007-000000000007",
+    "position": 9,
+    "filepath": "src/pages/slides/BoldEvent.tsx",
+    "title": "B — Playful Bold · Event Detail",
+    "description": "Phone-framed Event Detail mockup in the Playful Bold direction",
+    "speakerNotes": ""
+  },
+  {
+    "id": "rd-0008-0008-0008-000000000008",
+    "position": 10,
+    "filepath": "src/pages/slides/MinimalPalette.tsx",
+    "title": "C — Clean Minimal · Palette",
+    "description": "Mood and palette slide for Direction C: off-white, charcoal, precise blue, Sora",
+    "speakerNotes": ""
+  },
+  {
+    "id": "rd-0009-0009-0009-000000000009",
+    "position": 11,
+    "filepath": "src/pages/slides/MinimalHome.tsx",
+    "title": "C — Clean Minimal · Home Screen",
+    "description": "Phone-framed Home Screen mockup in the Clean Minimal direction",
+    "speakerNotes": ""
+  },
+  {
+    "id": "rd-0010-0010-0010-000000000010",
+    "position": 12,
+    "filepath": "src/pages/slides/MinimalEvent.tsx",
+    "title": "C — Clean Minimal · Event Detail",
+    "description": "Phone-framed Event Detail mockup in the Clean Minimal direction",
+    "speakerNotes": ""
+  },
+  {
+    "id": "rd-0011-0011-0011-000000000011",
+    "position": 13,
+    "filepath": "src/pages/slides/Closing.tsx",
+    "title": "Which direction?",
+    "description": "Side-by-side comparison of all three directions with mini phone mockups and vibe descriptors",
+    "speakerNotes": ""
+  }
+]

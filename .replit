@@ -1,0 +1,100 @@
+modules = ["nodejs-24", "python-3.11", "postgresql-16"]
+
+[deployment]
+router = "application"
+deploymentTarget = "autoscale"
+
+[deployment.postBuild]
+args = ["pnpm", "store", "prune"]
+env = { "CI" = "true" }
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "scan-error-summary-tests"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "stage-dry-run"
+
+[[workflows.workflow]]
+name = "scan-error-summary-tests"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd artifacts/api-server && pnpm test"
+
+[workflows.workflow.metadata]
+isValidation = true
+
+[[workflows.workflow]]
+name = "stage-dry-run"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd artifacts/bill-splitter && bash scripts/stage-eas-build.sh --dry-run"
+
+[workflows.workflow.metadata]
+isValidation = true
+
+[agent]
+stack = "PNPM_WORKSPACE"
+expertMode = true
+integrations = ["revenuecat:1.0.0", "github:1.0.0"]
+
+[postMerge]
+path = "scripts/post-merge.sh"
+timeoutMs = 20000
+
+[[ports]]
+localPort = 8080
+externalPort = 8080
+
+[[ports]]
+localPort = 8081
+externalPort = 80
+
+[[ports]]
+localPort = 8082
+externalPort = 3003
+
+[[ports]]
+localPort = 19339
+externalPort = 3001
+
+[[ports]]
+localPort = 22252
+externalPort = 3000
+exposeLocalhost = true
+
+[[ports]]
+localPort = 22253
+externalPort = 3002
+
+[nix]
+channel = "stable-25_05"
+
+[userenv]
+
+[userenv.shared]
+EXPO_PUBLIC_REVENUECAT_TEST_API_KEY = "test_ZaFjvEoITmVmUbvDwyWBWAMsidK"
+EXPO_PUBLIC_REVENUECAT_IOS_API_KEY = "appl_YktlcfZdrnyoZodYbaFfrlMDwwt"
+REVENUECAT_PROJECT_ID = "proj7d91309c"
+EXPO_PUBLIC_DOMAIN = "invite-9bwgw.replit.app"
+EXPO_PUBLIC_CLERK_PROXY_URL = "https://invite-9bwgw.replit.app/api/__clerk"
+EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY = "pk_live_YXBwXzNFSlVFVUlhb2JSWHFtcU00YVdnUHpGeTJPTS5jbGVyay5kZXYk"
+APPLE_TEAM_ID = "FNBGUZQ4T3"
+ASC_KEY_ID = "XKFJ37U826"
+ASC_ISSUER_ID = "aabe5344-7972-45c0-8b3d-582b1f5d350d"
+
+[objectStorage]
+defaultBucketID = "replit-objstore-619074af-cc5a-4f2b-87f6-86f32ad2daf2"

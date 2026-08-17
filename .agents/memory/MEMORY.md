@@ -1,0 +1,14 @@
+- [Production DB schema gaps](prod-db-gaps.md) — schema changes added in dev must be republished to reach production; two columns were missing and caused 500s.
+- [EAS iOS build](eas-ios-build.md) — always build via stage-eas-build.sh (pins deps; no lockfile in monorepo app = version drift on worker); four native patches needed for Xcode 26.
+- [RevenueCat freemium setup](revenuecat-setup.md) — project IDs, user identity mapping, free-event counting rules, webhook auth, and manual dashboard steps required.
+- [Clerk live key reconstruction](clerk-key-reconstruction.md) — Replit-managed Clerk key can be derived from the Clerk environment endpoint; pk_live_ = "pk_live_" + base64(frontend_api_host + "$").
+- [App Store assets](app-store-assets.md) — screenshots built in mockup-sandbox (Screenshot1–5.tsx); metadata in .local/app-store-metadata.md; screenshots saved to screenshots/ folder.
+- [Pending before launch](pending-launch.md) — items still needed before submitting to App Store review.
+- [Android keystore](android-keystore.md) — PKCS12 keystore generated via OpenSSL (no keytool), uploaded to EAS via GraphQL; SHA-1 registered in Google Cloud Console.
+- [TestFlight crash analysis](testflight-crash-analysis.md) — Build 3 crashed (SDK 54 + iOS 26 native); secondary vector: Sentry 8.x throws synchronously on invalid DSN before React mounts.
+- [TestFlight black screen](testflight-black-screen.md) — Build 5 shows black screen: useFonts hang keeps splash up; null renders in _layout/index leave native bg exposed; Clerk proxy never reached. Fix: font timeout + replace null with bg-colored views.
+- [Diagnostics stack](diagnostics-stack.md) — three-layer production observability: launch telemetry, API ping, error rate tracking, and a token-gated dashboard at /diagnostics/.
+- [Build 24 pending](build-24-pending.md) — profile.tsx phone field redesign + banner auto-dismiss coded but not yet in a build; Mac stage dir needs manual update before building.
+- [Gallery photo upload fix](gallery-photo-upload-fix.md) — old multipart POST /events/:eventId/photos was kept alongside the presigned endpoints; proxy dropped the body same as receipts. Also: signed download URLs were 5 min; raised to 1 hr.
+- [Payment SMS architecture](payment-sms-architecture.md) — two-tier guests (app vs non-app), raw phone now stored on user_profiles, Venmo/Cash App deep link formats, privacy tradeoff.
+- [expo-dev-client pod fix](expo-dev-client-pod-fix.md) — expo-updates pod script now unconditionally requires it; add to devDeps + stage-eas-build.sh injects as fallback.

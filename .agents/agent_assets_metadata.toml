@@ -1,0 +1,176 @@
+uploads = []
+
+[[generated]]
+id = "oukdw6xkFU131IrC1HbzO"
+uri = "file://artifacts/bill-splitter/assets/images/icon.png"
+type = "image"
+title = "invite-icon-solid-white-envelope"
+
+[[generated]]
+id = "-D7ajmQUACu9PiDHBy17c"
+uri = "file://artifacts/bill-splitter/assets/images/adaptive-icon.png"
+type = "image"
+title = "invite-adaptive-icon-solid-white-on-white"
+
+[[generated]]
+id = "d6q7jJ2Z4ABC8CTccMPGS"
+uri = "file://artifacts/bill-splitter/assets/images/splash.png"
+type = "image"
+title = "invite-splash-indigo-envelope-wordmark"
+
+[[outputs]]
+id = "T5Q4kUYbRE328WCueQmFb"
+uri = "file://.local/outputs/invite-Warm-Social-Layouts.pdf"
+type = "pdf"
+title = "invite — Warm Social Layouts (PDF)"
+
+[[outputs]]
+id = "lOAlb8T0-6BuMHYYmzhs8"
+uri = "file://.local/outputs/invite-Warm-Social-All-23-Slides.pdf"
+type = "pdf"
+title = "invite — All 23 Slides (PDF)"
+
+[[outputs]]
+id = "qY4FSy7CsWqNHbDTQ2OMa"
+uri = "file://screenshots/hires-1290x2796/owmo-sc4.jpg"
+type = "image"
+title = "Owmo — IAP Review Screenshot"
+
+[[outputs]]
+id = "Tj-ZVmjmRUEzuBilx6s0c"
+uri = "file://screenshots/paywall-iap-review.png"
+type = "image"
+title = "Owmo Paywall — IAP Review Screenshot"
+
+[[outputs]]
+id = "3MpbY1rEXOPS7q9OZ1qKt"
+uri = "file://screenshots/paywall-iap-review-1024.jpg"
+type = "image"
+title = "Owmo Paywall — 1024×1024, 72 dpi, RGB JPG"
+
+[[outputs]]
+id = "-ayyqKxehhK_cin8Ib3ek"
+uri = "file://.local/asc_key_temp.zip"
+type = "unspecified"
+title = "ASC Private Key — extract asc_key_temp.p8, upload to RevenueCat, then delete"
+
+[[outputs]]
+id = "GA71fIxjw5pZvA_3tE6JK"
+uri = "file://.local/asc_key.txt"
+type = "text"
+title = "ASC Private Key — copy contents, then delete this file"
+
+[[outputs]]
+id = "V84_0ZUbdRw4xmWEzl3Ge"
+uri = "file://.local/AuthKey_XKFJ37U826.zip"
+type = "unspecified"
+title = "AuthKey_XKFJ37U826.p8 — extract and upload to RevenueCat “App Store Connect API” section"
+
+[[outputs]]
+id = "D4d1KGjTeYqKPXqP-QO4a"
+uri = "file://owmo-build.tar.gz"
+type = "unspecified"
+title = "Owmo project code (for Mac build)"
+
+[[outputs]]
+id = "scPA5vt-UZhjTiSnNQl4j"
+uri = "file://screenshots/android-tablet/Screenshot1.png"
+type = "image"
+title = "Tablet 1 — Hero splash"
+
+[[outputs]]
+id = "ik3lMl2lbnLIF_Wb0cxt4"
+uri = "file://screenshots/android-tablet/Screenshot2.png"
+type = "image"
+title = "Tablet 2 — Events list"
+
+[[outputs]]
+id = "X0yKX905Xgnu8s80yINvO"
+uri = "file://screenshots/android-tablet/Screenshot3.png"
+type = "image"
+title = "Tablet 3 — Venue picker"
+
+[[outputs]]
+id = "HsdVm469GRDDuu7bruthJ"
+uri = "file://screenshots/android-tablet/Screenshot4.png"
+type = "image"
+title = "Tablet 4 — Bill / receipt"
+
+[[outputs]]
+id = "QwKslkYLUQbCtbnwAtMZ9"
+uri = "file://screenshots/android-tablet/Screenshot5.png"
+type = "image"
+title = "Tablet 5 — Balances"
+
+[[outputs]]
+id = "yRcihvvaB9OHlWTnf9zJw"
+uri = "file://screenshots/android/Screenshot1.png"
+type = "image"
+title = "Screenshot 1"
+
+[[outputs]]
+id = "zTU4xY5bfyfUPt276mE-G"
+uri = "file://screenshots/android/Screenshot2.png"
+type = "image"
+title = "Screenshot 2"
+
+[[outputs]]
+id = "7fq-STu1jcjCxGWOk8elJ"
+uri = "file://screenshots/android/Screenshot3.png"
+type = "image"
+title = "Screenshot 3"
+
+[[outputs]]
+id = "YZAraZBM9ghE7nHjBWhAl"
+uri = "file://screenshots/android/Screenshot4.png"
+type = "image"
+title = "Screenshot 4"
+
+[[outputs]]
+id = "o3ze4Gv-hfuhTUYniU6pY"
+uri = "file://screenshots/android/Screenshot5.png"
+type = "image"
+title = "Screenshot 5"
+
+[[outputs]]
+id = "abNky9sPD0sVBZzOlqMqI"
+uri = "file://screenshots/owmo-thumbnail.png"
+type = "image"
+title = "Owmo Thumbnail"
+
+[[outputs]]
+id = "S73j31Yj-PF2SRj7058qc"
+uri = "file://screenshots/owmo-app-icon.png"
+type = "image"
+title = "Owmo App Icon"
+
+[[outputs]]
+id = "thODA3eaSLF_AYw0xLpbO"
+uri = "file://screenshots/owmo-icon-1024.png"
+type = "image"
+title = "Owmo App Icon — 1024×1024"
+
+[[outputs]]
+id = "OSU3MzwfZJl6Dwz74LcLE"
+uri = "file://screenshots/owmo-icon-1024v2.png"
+type = "image"
+title = "Owmo App Icon v2 — Geometric"
+
+[[outputs]]
+id = "HoHIZgSV0j9YLqyWbVmrw"
+uri = "file://screenshots/owmo-icon-1024v3.png"
+type = "image"
+title = "Owmo App Icon v3 — Stylish Pink"
+
+[[outputs]]
+id = "diWp8entBaWYcaj4RNCtV"
+uri = "file://screenshots/owmo-icon-1024v4.png"
+type = "image"
+title = "Owmo App Icon v4 — Bold Pink"
+
+[[outputs]]
+id = "mdDx5GKdrAEnHcvYLtmeY"
+uri = "file://screenshots/guest-summary-redesign.jpg"
+type = "image"
+title = "Guest Payment Summary — Redesign"
+description = "Venmo variant shown. Same layout renders for Cash App (green), Zelle (purple box), and paid state (green banner)."
