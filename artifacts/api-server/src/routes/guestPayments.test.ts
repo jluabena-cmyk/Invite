@@ -482,7 +482,7 @@ describe("GET /guest-summary/:token/view — HTML page", () => {
     const res = await request(app).get(`/api/guest-summary/${token}/view`);
 
     expect(res.status).toBe(200);
-    expect(res.text).toContain("The host hasn't added payment details yet");
+    expect(res.text).toContain("No payment handle on file");
     // CSS defines .btn-cashapp / .btn-venmo / .zelle-box so check for the
     // element attribute, which only appears when the block is rendered.
     expect(res.text).not.toContain('class="btn btn-cashapp"');
@@ -505,7 +505,7 @@ describe("GET /guest-summary/:token/view — HTML page", () => {
     expect(res.text).not.toContain("cash.app/$aliceguest");
     expect(res.text).not.toContain("cash.app/aliceguest");
     // No fallback message when a payment method is present
-    expect(res.text).not.toContain("The host hasn't added payment details yet");
+    expect(res.text).not.toContain("No payment handle on file");
 
     await db
       .update(userProfilesTable)
@@ -523,12 +523,12 @@ describe("GET /guest-summary/:token/view — HTML page", () => {
 
     expect(res.status).toBe(200);
     // The deep-link URL must reference the host's venmo handle
-    expect(res.text).toContain("venmo.com/hostvenmo");
+    expect(res.text).toContain("venmo.com/u/hostvenmo");
     // The guest participant has no venmoHandle so this is purely a
     // host-vs-guest guard, but confirm the displayed handle is the host's
     expect(res.text).toContain("Pay @hostvenmo via Venmo");
     // No fallback message when a payment method is present
-    expect(res.text).not.toContain("The host hasn't added payment details yet");
+    expect(res.text).not.toContain("No payment handle on file");
 
     await db
       .update(userProfilesTable)
@@ -549,7 +549,7 @@ describe("GET /guest-summary/:token/view — HTML page", () => {
     expect(res.text).toContain("Pay via Zelle");
     expect(res.text).toContain("host@zelle.example");
     // No fallback when Zelle info is present
-    expect(res.text).not.toContain("The host hasn't added payment details yet");
+    expect(res.text).not.toContain("No payment handle on file");
     // No Cash App / Venmo buttons (check element attr, not CSS class name)
     expect(res.text).not.toContain('class="btn btn-cashapp"');
     expect(res.text).not.toContain('class="btn btn-venmo"');

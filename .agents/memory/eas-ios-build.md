@@ -68,7 +68,8 @@ Uses EAS-stored remote API key (GX279W7R8D) — no local ASC credentials needed.
 - To update jluabena-cmyk/Invite use `gitPush({ branch: "build8-sync" })` — fast-forwards the build branch
 - Shell `git push origin ...` fails (no credentials stored for that remote)
 - `sync-from-replit.sh` defaults to `build8-sync`, fast-forwards only, and STOPS on divergence (never auto hard-resets). It also refuses to pull/reset to any ref missing the app source (orphan-branch guard).
-- `build8-sync` now carries the full monorepo history; full recovery procedure: docs/github-build-sync.md
+- `build8-sync` carries full monorepo CONTENT via snapshot commits (not Replit's commit history; attached_assets excluded); full recovery procedure: docs/github-build-sync.md
+- When gitPush is unavailable, sync build8-sync via GitHub Git Data API snapshot commits (blobs→tree→commit→ref) through the GitHub connection; throttle under 10 RPS. The stage script's push guard accepts content-identical snapshots.
 - `artifacts/bill-splitter/package-lock.json` is now COMMITTED (registry-resolved, pinned to native-deps baseline). After clone/reset use `npm ci` — NOT `npm install --legacy-peer-deps`, which resolves newer packages that break native compilation. Regenerate + commit the lockfile whenever package.json deps change.
 
 ## Native patch history (withPodfileSpmFix.js)
